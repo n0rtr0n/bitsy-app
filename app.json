@@ -3,7 +3,6 @@
     "name": "Bitsy Controller",
     "slug": "bitsy-app",
     "privacy": "public",
-    "sdkVersion": "38.0.0",
     "platforms": [
       "ios",
       "android",
