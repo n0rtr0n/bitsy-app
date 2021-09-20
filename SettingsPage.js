@@ -31,6 +31,7 @@ const SettingsPage = () => {
     context.config.apiAddress.setApiAddress(config.defaultApiAddress);
   }
 
+  //TODO: settings page seems to break when a new value is entered
   return (
     <ScrollView style={context.styles.container}>
       <Text

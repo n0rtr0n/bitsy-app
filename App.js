@@ -43,7 +43,7 @@ const Bitsy = () => {
       console.log('switching to new pattern');
     })
     .catch((error) => {
-      alert("There's been an error");
+      alert("There's been an error switching to a new pattern");
       console.log(error);
     });
   };

@@ -14,7 +14,7 @@ const SolidColorPatterns = () => {
 
   const [color, setColor] = useState({'red': 255, 'green': 0, 'blue': 0});
 
-  const [pulseColor, setPulseColor] = useState({'red': 255, 'green': 0, 'blue': 0});
+  const [pulseParameters, setPulseParameters] = useState({'red': 255, 'green': 0, 'blue': 0, 'pulseSpeed': 1});
 
   const [solidColor, setSolidColor] = useState(new SolidColor(255,0,0));
 
@@ -22,14 +22,15 @@ const SolidColorPatterns = () => {
 
   // TODO: play around with updating value vs stepping
   // TODO: add color representation
+  // TODO: add a "go" button
   const handleSolidColorPatternUpdate = colorChange => {
     console.log("handling solid color change event");
     setColor({...color, ...colorChange});
   };
 
-  const handlePulseSolidColorPatternUpdate = colorChange => {
+  const handlePulseSolidColorPatternUpdate = parameterChange => {
     console.log("handling pulse color change event");
-    setPulseColor({...pulseColor, ...colorChange});
+    setPulseParameters({...pulseParameters, ...parameterChange});
   };
 
   const handleRainbowShiftPatternUpdate = () => {
@@ -54,10 +55,22 @@ const SolidColorPatterns = () => {
     setSolidColor(new SolidColor(color.red, color.green, color.blue));
   }, [color]);
 
+  // TODO: allow ability to alter speed of pulse
+  useEffect(() => {
+    data = {
+      red: pulseParameters.red,
+      blue: pulseParameters.blue,
+      green: pulseParameters.green,
+      pulseSpeed: pulseParameters.pulseSpeed,
+    }
+
+    context.updatePattern('pulse', data); 
+  }, [pulseParameters]); 
+
   return (
     <ScrollView style={context.config.styles.container}>
       <PulseSolidColorPattern
-        color={pulseColor}
+        pulseParameters={pulseParameters}
         handlePulseSolidColorPatternUpdate={handlePulseSolidColorPatternUpdate}
       />
 
