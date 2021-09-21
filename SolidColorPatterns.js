@@ -14,7 +14,7 @@ const SolidColorPatterns = () => {
 
   const [color, setColor] = useState({'red': 255, 'green': 0, 'blue': 0});
 
-  const [pulseParameters, setPulseParameters] = useState({'red': 255, 'green': 0, 'blue': 0, 'pulseSpeed': 1});
+  const [pulseParameters, setPulseParameters] = useState({'red': 255, 'green': 0, 'blue': 0, 'pulseSpeed': 1, 'latchModeEnabled': true});
 
   const [solidColor, setSolidColor] = useState(new SolidColor(255,0,0));
 
@@ -23,6 +23,7 @@ const SolidColorPatterns = () => {
   // TODO: play around with updating value vs stepping
   // TODO: add color representation
   // TODO: add a "go" button
+  // TODO: add an option for "latch mode" vs "go mode"
   const handleSolidColorPatternUpdate = colorChange => {
     console.log("handling solid color change event");
     setColor({...color, ...colorChange});
@@ -45,6 +46,10 @@ const SolidColorPatterns = () => {
     context.updatePattern("rainbowFade", {speed: rainbowFadeSpeed});
   };
 
+  const handlePulseGoButton = () => {
+    context.updatePattern('pulse', data); 
+  }
+
   // TODO: prevent this from rendering every time
   useEffect(() => {
     context.updatePattern('solidColor', solidColor.serialize());
@@ -63,8 +68,9 @@ const SolidColorPatterns = () => {
       green: pulseParameters.green,
       pulseSpeed: pulseParameters.pulseSpeed,
     }
-
-    context.updatePattern('pulse', data); 
+    if (!pulseParameters.latchModeEnabled) {
+      context.updatePattern('pulse', data); 
+    }
   }, [pulseParameters]); 
 
   return (
@@ -72,6 +78,7 @@ const SolidColorPatterns = () => {
       <PulseSolidColorPattern
         pulseParameters={pulseParameters}
         handlePulseSolidColorPatternUpdate={handlePulseSolidColorPatternUpdate}
+        handlePulseGoButton={handlePulseGoButton}
       />
 
       <SolidColorPattern

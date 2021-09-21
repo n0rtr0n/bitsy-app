@@ -1,8 +1,8 @@
 import {Text, View} from "react-native";
-import {Card, Slider} from "react-native-elements";
+import {Button, Card, CheckBox, Slider} from "react-native-elements";
 import React from "react";
 
-const PulseSolidColorPattern = ({pulseParameters, handlePulseSolidColorPatternUpdate}) => {
+const PulseSolidColorPattern = ({pulseParameters, handlePulseSolidColorPatternUpdate, handlePulseGoButton}) => {
   return (
     <Card>
       <Card.Title>Pulse Solid Color</Card.Title>
@@ -33,9 +33,26 @@ const PulseSolidColorPattern = ({pulseParameters, handlePulseSolidColorPatternUp
       <View>
         <Text>speed: {pulseParameters.pulseSpeed}</Text>
         <Slider
-          maximumValue={10}
+          maximumValue={14}
           value={pulseParameters.pulseSpeed}
           onValueChange={value => handlePulseSolidColorPatternUpdate({pulseSpeed: parseInt(value)})}
+        />
+      </View>
+      <View>
+        <Text>Latch mode enabled: {pulseParameters.latchModeEnabled}</Text>
+        <Text>When enabled, will only update when "go" button is pressed</Text>
+        <CheckBox  
+          center  
+          title='Enable/disable latch mode'
+          checked={pulseParameters.latchModeEnabled}
+          onPress={() => handlePulseSolidColorPatternUpdate({latchModeEnabled: !pulseParameters.latchModeEnabled})}
+        />
+      </View>
+      <View>
+        <Text>When latch mode is enabled, press this button to update parameters</Text>
+        <Button
+          title="Update Pattern"
+          onPress={() => handlePulseGoButton({})}
         />
       </View>
     </Card>
