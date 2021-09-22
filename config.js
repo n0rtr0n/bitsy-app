@@ -1,6 +1,6 @@
 const config = {
   // defaultApiAddress: 'http://192.168.0.169:3000',
-  defaultApiAddress: 'http://192.168.0.2:3000',
+  defaultApiAddress: 'http://192.168.0.69:3000',
 };
 
 module.exports = config;
